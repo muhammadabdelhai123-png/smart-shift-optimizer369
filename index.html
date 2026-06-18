@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Smart Shift Optimizer - Intelligent Shift Management System">
+  <meta name="keywords" content="shift management, employee management, attendance, flutter">
+  <meta name="author" content="Muhammed Abdelhai Sharif">
+
+  <title>Smart Shift Optimizer | Intelligent Shift Management System</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #4F46E5;
+      --primary-dark: #3730A3;
+      --secondary: #7B61FF;
+      --accent: #8B5CF6;
+      --success: #10B981;
+      --error: #EF4444;
+      --warning: #F59E0B;
+      --bg-dark: #0a0a14;
+      --bg-section: #0f0f1e;
+      --bg-card: #16162a;
+      --bg-card-hover: #1e1e35;
+      --text-primary: #FFFFFF;
+      --text-secondary: #B8B8D1;
+      --text-muted: #8888A8;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(79, 70, 229, 0.5);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', 'Cairo', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(10, 10, 20, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      padding: 15px 0;
+      transition: all 0.3s ease;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .logo i {
+      font-size: 2rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-weight: 600;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      right: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      background: radial-gradient(ellipse at top, #1a1a3e 0%, var(--bg-dark) 70%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(123, 97, 255, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: float 8s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-30px); }
+    }
+
+    .hero-content {
+      text-align: center;
+      color: white;
+      z-index: 2;
+      padding: 20px;
+      max-width: 900px;
+      position: relative;
+    }
+
+    .hero-icon {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 30px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 20px 60px rgba(79, 70, 229, 0.5);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 20px 60px rgba(79, 70, 229, 0.5); }
+      50% { transform: scale(1.05); box-shadow: 0 25px 70px rgba(79, 70, 229, 0.7); }
+    }
+
+    .hero-icon i {
+      font-size: 70px;
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, #fff 0%, #B8B8D1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.4rem;
+      margin-bottom: 40px;
+      color: var(--text-secondary);
+      font-weight: 300;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 16px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      box-shadow: 0 10px 30px rgba(79, 70, 229, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(79, 70, 229, 0.6);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: white;
+      transform: translateY(-3px);
+    }
+
+    /* Sections */
+    section {
+      padding: 100px 30px;
+      background: var(--bg-section);
+    }
+
+    section:nth-child(even) {
+      background: var(--bg-dark);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      font-size: 2.8rem;
+      color: var(--text-primary);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .section-title p {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+    }
+
+    .section-title .divider {
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      margin: 20px auto;
+      border-radius: 2px;
+    }
+
+    /* About Section */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-text {
+      direction: rtl;
+      text-align: right;
+    }
+
+    .about-text h3 {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    .about-text p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      line-height: 1.8;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    .about-image .mockup {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(79, 70, 229, 0.3);
+      text-align: center;
+      color: white;
+    }
+
+    .about-image .mockup i {
+      font-size: 100px;
+      margin-bottom: 20px;
+    }
+
+    /* Features Section */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      padding: 40px 30px;
+      border-radius: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid var(--border);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      background: var(--bg-card-hover);
+      border-color: var(--border-hover);
+      box-shadow: 0 20px 40px rgba(79, 70, 229, 0.2);
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.4rem;
+      color: var(--text-primary);
+      margin-bottom: 15px;
+    }
+
+    .feature-card p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* How to Use Section - Arabic */
+    .steps-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .step-card {
+      background: var(--bg-card);
+      padding: 40px 30px 30px;
+      border-radius: 20px;
+      position: relative;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      direction: rtl;
+      text-align: right;
+    }
+
+    .step-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-5px);
+      background: var(--bg-card-hover);
+    }
+
+    .step-number {
+      position: absolute;
+      top: -20px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 900;
+      box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+    }
+
+    .step-card h3 {
+      color: var(--primary);
+      margin: 20px 0 15px;
+      font-size: 1.3rem;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    .step-card p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    /* Platforms Section */
+    .platforms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .platform-card {
+      background: var(--bg-card);
+      padding: 40px 30px;
+      border-radius: 20px;
+      text-align: center;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .platform-card:hover {
+      background: var(--bg-card-hover);
+      transform: translateY(-5px);
+      border-color: var(--border-hover);
+    }
+
+    .platform-card i {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .platform-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: var(--text-primary);
+    }
+
+    .platform-card p {
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    .platform-card .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* Tech Stack */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 25px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .tech-item {
+      background: var(--bg-card);
+      padding: 35px 25px;
+      border-radius: 15px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid var(--border);
+    }
+
+    .tech-item:hover {
+      transform: translateY(-5px);
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+    }
+
+    .tech-item i {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
+
+    .tech-item h4 {
+      color: var(--text-primary);
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .tech-item p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    /* Developer Section */
+    .developer-card {
+      max-width: 800px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 50%, #6D28D9 100%);
+      padding: 50px 40px;
+      border-radius: 30px;
+      color: white;
+      box-shadow: 0 20px 60px rgba(139, 92, 246, 0.4);
+      text-align: center;
+    }
+
+    .developer-avatar {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 20px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: #8B5CF6;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .developer-card h3 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+
+    .developer-card .role {
+      font-size: 1.1rem;
+      opacity: 0.95;
+      margin-bottom: 30px;
+      font-weight: 500;
+    }
+
+    .developer-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .badge {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 12px 20px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .badge:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-3px);
+    }
+
+    .badge i {
+      font-size: 1.2rem;
+    }
+
+    .location-badge {
+      margin-top: 25px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    /* Footer - Year Only */
+    .year-footer {
+      background: var(--bg-dark);
+      color: var(--text-secondary);
+      padding: 30px;
+      text-align: center;
+      font-size: 1.1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .year-footer span {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 900;
+      font-size: 1.3rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      .section-title h2 {
+        font-size: 2rem;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+      }
+
+      .developer-card {
+        padding: 40px 25px;
+      }
+
+      .developer-badges {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .badge {
+        width: 100%;
+        max-width: 350px;
+        justify-content: center;
+      }
+    }
+
+    /* Scroll Animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo">
+      <i class="fas fa-calendar-check"></i>
+      <span>Smart Shift optimizer</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how-to-use">How to Use</a></li>
+      <li><a href="#platforms">Download</a></li>
+      <li><a href="#developer">Developer</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-icon">
+      <i class="fas fa-calendar-check"></i>
+    </div>
+    <h1>Smart Shift Optimizer</h1>
+    <p>Intelligent Shift Management & Automatic Distribution System</p>
+    <div class="hero-buttons">
+      <a href="#platforms" class="btn btn-primary">
+        <i class="fas fa-download"></i>
+        Download App
+      </a>
+      <a href="#about" class="btn btn-outline">
+        <i class="fas fa-info-circle"></i>
+        Learn More
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- About Section - Arabic -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="section-title fade-in">
+      <h2>About the Project</h2>
+      <div class="divider"></div>
+      <p>An intelligent solution for shift management</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text fade-in">
+        <h3>ما هو Smart Shift Optimizer؟</h3>
+        <p>
+          نظام متكامل لإدارة الشيفتات وتوزيعها على الموظفين بشكل آلي وذكي.
+          يساعد المديرين في تنظيم جداول العمل ومتابعة الحضور والانصراف
+          وإدارة الرواتب والمكافآت بفعالية.
+        </p>
+        <p>
+          يهدف المشروع إلى تقليل الوقت والجهد المبذول في الجدولة اليدوية،
+          وتقليل الأخطاء البشرية، وتحقيق التوازن بين احتياجات المنظمة
+          وراحة الموظفين، مما يزيد الإنتاجية ويحسن بيئة العمل.
+        </p>
+        <p>
+          <strong>الجيهات المستهدفه:</strong> الشركات، المصانع، المطاعم،
+          المستشفيات، مراكز الاتصال، وأي مؤسسة تعتمد على نظام الشيفتات.
+        </p>
+      </div>
+
+      <div class="about-image fade-in">
+        <div class="mockup">
+          <i class="fas fa-users-cog"></i>
+          <h3 style="font-size: 1.5rem; margin-bottom: 10px;">Smart Management</h3>
+          <p style="opacity: 0.9;">Automatic shift distribution based on skills & availability</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="section-title fade-in">
+      <h2>Features</h2>
+      <div class="divider"></div>
+      <p>Everything you need for efficient shift management</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card fade-in">
+        <div class="feature-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <h3>Employee Management</h3>
+        <p>Complete management of employees and managers with multiple permissions and roles</p>
+      </div>
+
+      <div class="feature-card fade-in">
+        <div class="feature-icon">
+          <i class="fas fa-magic"></i>
+        </div>
+        <h3>Automatic Distribution</h3>
+        <p>Smart algorithm to distribute shifts automatically considering skills and availability</p>
+      </div>
+
+      <div class="feature-card fade-in">
+        <div class="feature-icon">
+          <i class="fas fa-clock"></i>
+        </div>
+        <h3>Attendance Tracking</h3>
+        <p>Check-in and check-out registration with detailed and accurate reports</p>
+      </div>
+
+      <div class="feature-card fade-in">
+        <div class="feature-icon">
+          <i class="fas fa-money-bill-wave"></i>
+        </div>
+        <h3>Salaries & Bonuses</h3>
+        <p>Manage salaries and bonuses with automatic accurate calculations</p>
+      </div>
+
+      <div class="feature-card fade-in">
+        <div class="feature-icon">
+          <i class="fab fa-whatsapp"></i>
+        </div>
+        <h3>WhatsApp Notifications</h3>
+        <p>Send data and notifications to employees directly via WhatsApp</p>
+      </div>
+
+      <div class="feature-card fade-in">
+        <div class="feature-icon">
+          <i class="fas fa-language"></i>
+        </div>
+        <h3>Multi-Language Support</h3>
+        <p>Arabic and English interface with full RTL support</p>
+      </div>
+
+      <div class="feature-card fade-in">
+        <div class="feature-icon">
+          <i class="fas fa-moon"></i>
+        </div>
+        <h3>Dark Mode</h3>
+        <p>Switch between light and dark modes for eye comfort</p>
+      </div>
+
+      <div class="feature-card fade-in">
+        <div class="feature-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h3>Reports & Statistics</h3>
+        <p>Comprehensive reports and detailed statistics on performance and productivity</p>
+      </div>
+
+      <div class="feature-card fade-in">
+        <div class="feature-icon">
+          <i class="fas fa-exchange-alt"></i>
+        </div>
+        <h3>Shift Swapping</h3>
+        <p>Smart system for requesting shift swaps between employees</p>
+      </div>
+
+      <div class="feature-card fade-in">
+        <div class="feature-icon">
+          <i class="fas fa-bullhorn"></i>
+        </div>
+        <h3>Announcements</h3>
+        <p>Send announcements to all employees with read tracking</p>
+      </div>
+
+      <div class="feature-card fade-in">
+        <div class="feature-icon">
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        <h3>Leave Management</h3>
+        <p>Request and approve leaves with automatic schedule adjustment</p>
+      </div>
+
+      <div class="feature-card fade-in">
+        <div class="feature-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h3>Secure Authentication</h3>
+        <p>Secure login system with biometric support and password recovery</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How to Use Section - Arabic -->
+<section class="how-to-use" id="how-to-use">
+  <div class="container">
+    <div class="section-title fade-in">
+      <h2>طريقة الاستخدام</h2>
+      <div class="divider"></div>
+      <p>خطوات بسيطة للبدء في استخدام التطبيق</p>
+    </div>
+
+    <div class="steps-container">
+      <div class="step-card fade-in">
+        <div class="step-number">1</div>
+        <h3>تحميل التطبيق</h3>
+        <p>حمّل التطبيق من الروابط المتاحة أدناه حسب جهازك (Windows, Android)</p>
+      </div>
+
+      <div class="step-card fade-in">
+        <div class="step-number">2</div>
+        <h3>إنشاء حساب المدير</h3>
+        <p>سجّل كمدير أولاً لإنشاء حساب الإدارة الرئيسي. سيتم إرسال البيانات عبر WhatsApp</p>
+      </div>
+
+      <div class="step-card fade-in">
+        <div class="step-number">3</div>
+        <h3>إضافة الموظفين</h3>
+        <p>أضف بيانات الموظفين وارفع السير الذاتية. الموظفون يسجلون طلبات عمل</p>
+      </div>
+
+      <div class="step-card fade-in">
+        <div class="step-number">4</div>
+        <h3>الموافقة على الطلبات</h3>
+        <p>راجع طلبات الموظفين ووافق عليها. سيتم إرسال بيانات الدخول تلقائياً</p>
+      </div>
+
+      <div class="step-card fade-in">
+        <div class="step-number">5</div>
+        <h3>إنشاء الشيفتات</h3>
+        <p>أنشئ الشيفتات المطلوبة وحدد المتطلبات (القسم، المهارة، المدة)</p>
+      </div>
+
+      <div class="step-card fade-in">
+        <div class="step-number">6</div>
+        <h3>التوزيع التلقائي</h3>
+        <p>استخدم الخوارزمية الذكية لتوزيع الشيفتات تلقائياً على الموظفين</p>
+      </div>
+
+      <div class="step-card fade-in">
+        <div class="step-number">7</div>
+        <h3>متابعة الحضور</h3>
+        <p>سجّل حضور وانصراف الموظفين وتابع التقارير والإحصائيات</p>
+      </div>
+
+      <div class="step-card fade-in">
+        <div class="step-number">8</div>
+        <h3>إدارة الرواتب</h3>
+        <p>احسب الرواتب والمكافآت تلقائياً بناءً على ساعات العمل والحضور</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Platforms Section - Updated Links -->
+<section class="platforms" id="platforms">
+  <div class="container">
+    <div class="section-title fade-in">
+      <h2>Download the App</h2>
+      <div class="divider"></div>
+      <p>Available on Windows and Android</p>
+    </div>
+
+    <div class="platforms-grid">
+      <div class="platform-card fade-in">
+        <i class="fab fa-windows"></i>
+        <h3>Windows</h3>
+        <p>Full version for Windows 10/11 systems</p>
+        <a href="https://github.com/muhammadabdelhai123-png/smart-shift-optimizer123/releases/download/v1.0.0/smart_shift_optimizer.zip" class="btn btn-primary" download>
+          <i class="fas fa-download"></i>
+          Download ZIP
+        </a>
+      </div>
+
+      <div class="platform-card fade-in">
+        <i class="fab fa-android"></i>
+        <h3>Android</h3>
+        <p>Android app for all devices</p>
+        <a href="https://github.com/muhammadabdelhai123-png/smart-shift-optimizer456/releases/download/v1.0.0/Smart_Shift_Optimizer_v1.0.apk" class="btn btn-primary" download>
+          <i class="fas fa-download"></i>
+          Download APK
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tech Stack Section - Updated with AI -->
+<section class="tech-stack">
+  <div class="container">
+    <div class="section-title fade-in">
+      <h2>Tech Stack</h2>
+      <div class="divider"></div>
+      <p>Built with modern technologies</p>
+    </div>
+
+    <div class="tech-grid">
+      <div class="tech-item fade-in">
+        <i class="fab fa-flutter" style="color: #00D9FF;"></i>
+        <h4>Flutter</h4>
+        <p>Cross-platform UI framework</p>
+      </div>
+
+      <div class="tech-item fade-in">
+        <i class="fas fa-code" style="color: #00D9FF;"></i>
+        <h4>Dart</h4>
+        <p>Programming language</p>
+      </div>
+
+      <div class="tech-item fade-in">
+        <i class="fas fa-database" style="color: #00D9FF;"></i>
+        <h4>SQLite</h4>
+        <p>Local database storage</p>
+      </div>
+
+      <div class="tech-item fade-in">
+        <i class="fas fa-brain" style="color: #00D9FF;"></i>
+        <h4>AI Algorithm</h4>
+        <p>Smart shift distribution</p>
+      </div>
+
+      
+    </div>
+  </div>
+</section>
+
+<!-- Developer Section - Updated -->
+<section class="developer" id="developer">
+  <div class="container">
+    <div class="section-title fade-in">
+      <h2>About the Developer</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="developer-card fade-in">
+      <div class="developer-avatar">
+        <i class="fas fa-user-graduate"></i>
+      </div>
+      <h3>Muhammed Abdelhai Sharif</h3>
+      <p class="role">Application developer | Computer Science Student</p>
+
+      <div class="developer-badges">
+        <div class="badge">
+          <i class="fas fa-graduation-cap"></i>
+          <span>Computer Science Student</span>
+        </div>
+
+        <div class="badge">
+          <i class="fas fa-mobile-alt"></i>
+          <span>Flutter Developer</span>
+        </div>
+
+        <div class="badge">
+          <i class="fas fa-rocket"></i>
+          <span>Building Mobile, Web & Desktop Applications</span>
+        </div>
+
+        <div class="badge">
+          <i class="fas fa-trophy"></i>
+          <span>Creator of Smart Shift Optimizer</span>
+        </div>
+
+        <div class="badge">
+          <i class="fas fa-database"></i>
+          <span>SQLite Database Specialist</span>
+        </div>
+
+        <div class="badge">
+          <i class="fas fa-bolt"></i>
+          <span>Problem Solver & Future Software Engineer</span>
+        </div>
+      </div>
+
+      <div class="location-badge">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>Egypt</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Year Footer -->
+<div class="year-footer">
+  <span>2026</span>
+</div>
+
+<script>
+  // Smooth Scrolling
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+
+  // Scroll Animation
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.fade-in').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Navbar Scroll Effect
+  window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+      navbar.style.background = 'rgba(10, 10, 20, 0.95)';
+      navbar.style.boxShadow = '0 5px 30px rgba(0,0,0,0.3)';
+    } else {
+      navbar.style.background = 'rgba(10, 10, 20, 0.85)';
+      navbar.style.boxShadow = 'none';
+    }
+  });
+</script>
+
+</body>
+</html>
